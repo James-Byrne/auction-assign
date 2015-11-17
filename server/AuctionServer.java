@@ -9,6 +9,12 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import ClientHandler;
+import ItemFactory;
+import ItemHandler;
+
+// TODO
+// Spawn a item thread and hold it as long as the server is operating
+// Then pass a reference to that thread to each ClientHandler
 
 public class AuctionServer {
 
@@ -27,13 +33,17 @@ public class AuctionServer {
 			System.exit(1)
     }
 
+    // Create the itemHandler thread and pass reference to every client connection
+    ItemHandler itemHandler = new ItemHandler;
+    itemHandler.newAuction();
+
     do {
       // Wait for the client to make a connection
       Socket client = serverSocket.accept();
 
       System.out.println("\nNew client accepted.\n");
 
-      ClientHandler handler = new ClientHandler(client);
+      ClientHandler handler = new ClientHandler(client, itemHandler);
 
       handler.start();
     }while(true);
