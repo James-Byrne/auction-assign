@@ -64,6 +64,4 @@ public class ItemHandler extends Thread {
   public ArrayList listItems(){
     return auctionItems;
   }
-
-
 }

@@ -35,7 +35,7 @@ class ClientHandler extends Thread {
     + itemHandler.getCurrentItem() + "\n");
     output.println("The time left is"
     + itemHandler.getCurrentBid() + "\n");
-    output.println("To place a bid simply enter a number, to quit type QUIT \n");
+    output.println("To place a bid simply enter a number greater than the minimum bid, to find out what the current bid is enter 'get bid' to quit type QUIT \n");
 
 
 
@@ -43,13 +43,6 @@ class ClientHandler extends Thread {
     do {
       // Accept message from the client
       // userMessage = input.nextLine();
-
-      if(itemHandler.getCurrentBid() > currentBid){
-          currentBid = itemHandler.getCurrentBid();
-          //  echo to the user the change in the bid
-      }
-
-      
 
       // Accept messages from the user
       try {
@@ -62,6 +55,24 @@ class ClientHandler extends Thread {
         ioEx.printStackTrace();
       }
 
+      try {
+        if(client.input == "get bid") {
+          // echo the current bid
+        }
+        if(Integer.parseInt(client.input) > 0) {
+          if(itemHandler.getCurrentBid() > currentBid){
+              currentBid = itemHandler.getCurrentBid();
+              //  echo to the user the change in the bid
+          } else {
+            // echo bid not set, too low
+            // echo the current bid
+          }
+        } else {
+          // Throw error to the user, input not a number
+        }
+      } catch() {
+          // throw invalid input error
+      }
 
     } while (!recieved.equals("QUIT"));
   }
