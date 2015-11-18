@@ -1,9 +1,10 @@
 /*
   Author : James Byrne
 
-  Functionlaity
-  - Allow connections from multiple clients
-  - Hand the client off to the ClientHandler
+  Functionality
+  - Take a client connection
+  - Create a new instance of ItemHandler
+  - Spawn a ClientHandler and pass a reference to the ItemHandler
 */
 import java.io.*;
 import java.net.*;
@@ -29,7 +30,7 @@ public class AuctionServer {
       serverSocket  = new ServerSocket(PORT);
     }
     catch (IOException ioEx) {
-      System.out.println("\nUnable to set up port at " + PORT);
+      System.out.println("\nUnable to set up port at " + PORT + "\n\n");
 			System.exit(1)
     }
 
@@ -38,14 +39,19 @@ public class AuctionServer {
     itemHandler.newAuction();
 
     do {
-      // Wait for the client to make a connection
-      Socket client = serverSocket.accept();
+      try {
+        // Wait for the client to make a connection
+        Socket client = serverSocket.accept();
+        System.out.println("\nNew client accepted.\n");
 
-      System.out.println("\nNew client accepted.\n");
+        // Spawn a new client handler to take over the auction
+        ClientHandler handler = new ClientHandler(client, itemHandler);
 
-      ClientHandler handler = new ClientHandler(client, itemHandler);
-
-      handler.start();
+        handler.start();
+      }
+      catch (IOException ioEx) {
+        ioEx.printStackTrace();
+      }
     }while(true);
   }
 }
