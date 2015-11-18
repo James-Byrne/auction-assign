@@ -31,11 +31,6 @@ class ClientHandler extends Thread {
     try {
       input = new DataInputStream(client.getInputStream());
       output = new PrintStream(serviceSocket.getOutputStream());
-      // TODO : Remove below if the above works
-      // input = new Scanner(client.getInputStream());
-      // output = new PrintWriter(
-      // client.getOutputStream(), true
-      // );
     }
     catch(IOException ioEx) {
       ioEx.printStackTrace();
@@ -78,5 +73,7 @@ class ClientHandler extends Thread {
       }
 
     } while (!recieved.equals("QUIT"));
+    // Connection closed
+    output.println("Connection closed");
   }
 }
