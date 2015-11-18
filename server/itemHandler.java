@@ -5,12 +5,14 @@
   - Gets an instance of ItemFactory
 */
 
+import java.util.*;
+
 public class ItemHandler extends Thread {
 
   ItemFactory itemFactory;
-  private Hashmap<String, String> item;
+  private HashMap<String, String> item;
   private List<Map> auctionItems;
-  String currentItem = 0;
+  int  currentItem = 0;
 
   public ItemHandler () {
     // Default constructor
@@ -20,23 +22,24 @@ public class ItemHandler extends Thread {
 
   // Set the bid of a new item
   public String bid (String newBid){
-    if(Integer.parseInt(newBid) > auctionItems.get(currentItem).get('bid')) {
-      auctionItems.get(currentItem).get('bid') = newBid;
-      return 'Bid Successful! Current bid ' + newBid;
+
+    if(Integer.parseInt(newBid) > (Integer)auctionItems.get(currentItem).get("bid")){
+      auctionItems.get(currentItem).put("bid", Integer.parseInt(newBid));
+      return "Bid Successful! Current bid " + newBid;
     } else {
-      return 'Bid Unsucessful. Current bid is '
-      + auctionItems.get(currentItem).get('bid');
+      return "Bid Unsucessful. Current bid is "
+      + auctionItems.get(currentItem).get("bid").toString();
     }
   }
 
   // Get the name of the current item
   public String getCurrentItem() {
-    return auctionItems.get(currentItem).get('name');
+    return auctionItems.get(currentItem).get("name").toString();
   }
 
   // Get the top bid on the current item
   public String getCurrentBid() {
-    return auctionItems.get(currentItem).get('bid');
+    return auctionItems.get(currentItem).get("bid").toString();
   }
 
   // Move on to the next item in the auction
@@ -61,7 +64,7 @@ public class ItemHandler extends Thread {
 
   // TODO : Evaluate this, I dont think its needed for this assignment
   // return the list of all items
-  public ArrayList listItems(){
+  public List<Map> listItems(){
     return auctionItems;
   }
 }
