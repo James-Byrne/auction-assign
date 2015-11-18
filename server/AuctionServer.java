@@ -31,7 +31,6 @@ public class AuctionServer {
 
     // Create the itemHandler thread and pass reference to every client connection
     ItemHandler itemHandler = new ItemHandler();
-    itemHandler.newAuction();
 
     do {
       try {
