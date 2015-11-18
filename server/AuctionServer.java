@@ -9,8 +9,6 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
-// import ClientHandler;
-// import ItemHandler;
 
 public class AuctionServer {
 
@@ -22,7 +20,8 @@ public class AuctionServer {
     // Try to setup a socket at PORT
     // Else exit application
     try {
-      serverSocket  = new ServerSocket(PORT);
+      serverSocket = new ServerSocket(PORT);
+      System.out.println("\nPort connected suscessfully \n");
     }
     catch (IOException ioEx) {
       System.out.println("\nUnable to set up port at " + PORT + "\n\n");
@@ -33,6 +32,7 @@ public class AuctionServer {
     ItemHandler itemHandler = new ItemHandler();
 
     do {
+
       try {
         // Wait for the client to make a connection
         Socket client = serverSocket.accept();
