@@ -55,12 +55,12 @@ class ClientHandler extends Thread {
       recieved = input.readLine();
         if(recieved == "get bid") {
           // echo the current bid
-
+          output.println(currentBid);
         }
         if(Integer.parseInt(recieved) > 0) {
           if(Integer.parseInt(itemHandler.getCurrentBid()) > Integer.parseInt(currentBid)){
               currentBid = itemHandler.getCurrentBid();
-              //  echo to the user the change in the bid
+              // echo to the user the change in the bid
               output.println(currentBid);
           } else {
             // echo bid not set, too low & echo current bid
