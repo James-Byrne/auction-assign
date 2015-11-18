@@ -9,7 +9,9 @@
     - Take a bid
 */
 
-import ItemHandler;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 
 class ClientHandler extends Thread {
 
@@ -18,6 +20,7 @@ class ClientHandler extends Thread {
   private DataInputStream input;
   private PrintStream output;
   private String currentBid;
+  private String recieved;
 
   public ClientHandler(Socket client, ItemHandler itemHandler) {
     // client is referenced by socket number
@@ -30,7 +33,7 @@ class ClientHandler extends Thread {
     // Create the input and output streams for communication with the user
     try {
       input = new DataInputStream(client.getInputStream());
-      output = new PrintStream(serviceSocket.getOutputStream());
+      output = new PrintStream(client.getOutputStream());
     }
     catch(IOException ioEx) {
       ioEx.printStackTrace();
@@ -48,13 +51,14 @@ class ClientHandler extends Thread {
 
     // Handle clients input & bids
     do {
-
       try {
-        if(input.readLine() == "get bid") {
+      recieved = input.readLine();
+        if(recieved == "get bid") {
           // echo the current bid
+
         }
-        if(Integer.parseInt(input.readLine()) > 0) {
-          if(itemHandler.getCurrentBid() > currentBid){
+        if(Integer.parseInt(recieved) > 0) {
+          if(Integer.parseInt(itemHandler.getCurrentBid()) > Integer.parseInt(currentBid)){
               currentBid = itemHandler.getCurrentBid();
               //  echo to the user the change in the bid
               output.println(currentBid);
@@ -66,10 +70,11 @@ class ClientHandler extends Thread {
           // Throw error to the user, input not a number
           output.println("\nPlease input a number \n");
         }
-      } catch() {
+      } catch(IOException ioEx) {
+          ioEx.printStackTrace();
           // throw invalid input error
           output.println("\nInvalid input please see the original instructions below  \n");
-          output.println("\nTo place a bid simply enter a number greater than the minimum bid, to find out what the current bid is enter 'get bid' to quit type QUIT\n\n")
+          output.println("\nTo place a bid simply enter a number greater than the minimum bid, to find out what the current bid is enter 'get bid' to quit type QUIT\n\n");
       }
 
     } while (!recieved.equals("QUIT"));
