@@ -19,6 +19,7 @@ public class AuctionClient {
   private static DataOutputStream output;
   private static DataInputStream input;
   private static Socket link;
+  private static Scanner scanner;
 
   public static void main(String[] args) {
 
@@ -31,7 +32,7 @@ public class AuctionClient {
       System.out.println("\nHost ID not found");
       System.exit(1);
     }
-    // TODO : Remove the below 
+    // TODO : Remove the below
   //   run();
   // }
   //
@@ -48,19 +49,21 @@ public class AuctionClient {
       // get and input and output stream
       output = new DataOutputStream(link.getOutputStream());
       input = new DataInputStream(link.getInputStream());
-
+      scanner = new Scanner(System.in);
       // Wait for user input
       do {
-
+        System.out.println("Waiting on user input");
+        response = scanner.next().toString();
+        System.out.println("Got user input, response : " + response);
         // Check for user input
-        if((response = input.readLine()) != null) {
+        if(response != null) {
           // send the output to the server
           output.writeUTF(response);
           output.flush();
         }
-
-
-      } while(response != "Quit");
+      } while(response != "QUIT");
+      System.out.println("\nGoodbye");
+      System.exit(1);
     } catch (IOException e) {
       e.printStackTrace();
     }

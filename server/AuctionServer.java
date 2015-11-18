@@ -38,10 +38,13 @@ public class AuctionServer {
         Socket client = serverSocket.accept();
         System.out.println("\nNew client accepted.\n");
 
-        // Spawn a new client handler to take over the auction
-        ClientHandler handler = new ClientHandler(client, itemHandler);
+        Thread clientHandler = new Thread(new ClientHandler(client, itemHandler));
+        clientHandler.start();
 
-        handler.run();
+        // // Spawn a new client handler to take over the auction
+        // ClientHandler handler = new ClientHandler(client, itemHandler);
+        //
+        // handler.run();
       }
       catch (IOException ioEx) {
         ioEx.printStackTrace();
