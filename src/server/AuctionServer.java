@@ -1,5 +1,6 @@
 /*
   Author : James Byrne
+  The Auction Server class is the base of the whole application. It manages the initial setup and connections for each client and all processes associated with the  auction.
 
   Functionality
   - Take a client connection
@@ -40,11 +41,6 @@ public class AuctionServer {
 
         Thread clientHandler = new Thread(new ClientHandler(client, itemHandler));
         clientHandler.start();
-
-        // // Spawn a new client handler to take over the auction
-        // ClientHandler handler = new ClientHandler(client, itemHandler);
-        //
-        // handler.run();
       }
       catch (IOException ioEx) {
         ioEx.printStackTrace();

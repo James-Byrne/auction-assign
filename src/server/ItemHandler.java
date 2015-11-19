@@ -1,8 +1,19 @@
 /*
   Author - James Byrne
 
+  This class handles all of the interactions between the "items" for auction
+  and each of the clients
+
   Description
-  - Gets an instance of ItemFactory
+  - Creates an instance of ItemFactory
+  -
+
+  functions
+  - ItemHandler() : constructor
+  - bid(String newBid): Takes in the request for a bid
+  - getCurrentItem() : Returns the item currently up for auction
+  - getCurrentBid() : Returns the current bid on the item currently for sale
+  - Functions : nextItem, removeItems and listItems have been removed
 */
 
 import java.util.*;
@@ -40,31 +51,5 @@ public class ItemHandler extends Thread {
   // Get the top bid on the current item
   public String getCurrentBid() {
     return auctionItems.get(currentItem).get("bid").toString();
-  }
-
-  // Move on to the next item in the auction
-  // If there is no items left end the auction
-  public void nextItem() {
-    if(currentItem == auctionItems.size()) {
-      // TODO End the Auction when we run out of items
-      // auctionOver();
-    } else {
-      currentItem += 1;
-    }
-  }
-
-  // TODO : Evaluate this, I dont think its needed for this assignment
-  // remove an item
-  public void removeItem(Integer index) {
-    auctionItems.remove(index);
-    if(currentItem == index) {
-      nextItem();
-    }
-  }
-
-  // TODO : Evaluate this, I dont think its needed for this assignment
-  // return the list of all items
-  public List<Map> listItems(){
-    return auctionItems;
   }
 }

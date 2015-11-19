@@ -1,7 +1,9 @@
 /*
   Author : James Byre
 
-  Functionlaity:
+  Description:
+  The Client Handler class manages a users (client) session. It does this by revcieving user input from the client machine and acting upon it. 
+
   - Manage interaction with a client
   - Allow clients to submit a bid
     - Say hello
@@ -35,12 +37,6 @@ class ClientHandler implements Runnable {
       output = new PrintWriter(client.getOutputStream(), true);
 
       System.out.println("\nSuccessfully got input & output stream \n");
-    // } catch(IOException ioEx) {
-    //     ioEx.printStackTrace();
-    //     // throw invalid input error
-    //     output.println("\nInvalid input please see the original instructions below  \n");
-    //     output.println("\nTo place a bid simply enter a number greater than the minimum bid, to find out what the current bid is enter 'get bid' to quit type QUIT\n\n");
-    // }
 
       // Give the user instructions
       output.println("\nHello! Welcome to the auction\n");

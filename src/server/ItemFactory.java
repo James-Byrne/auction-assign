@@ -2,7 +2,6 @@
   Author - James Byrne
 
   Description
-  TODO : If I have enough time change this to pass a JSON Object
   Creates an ArrayList, each item within the arraylist is a HashMap which represents and item and its properties.
   An example of its structure can be seen below
 
@@ -13,6 +12,9 @@
     }
   }
 
+  Functions :
+  - ItemFactory() : Default constructor
+  - newAuction() : Returns an ArrayList of HashMaps containing all of the items to be auctioned and thier properties
 */
 
 import java.util.*;
@@ -20,7 +22,7 @@ import java.util.*;
 public class ItemFactory {
 
   public ItemFactory () {
-    // Default instructor
+    // Default constructor
   }
 
   public ArrayList<Map> newAuction() {
