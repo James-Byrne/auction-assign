@@ -28,11 +28,17 @@ public class ClientThreadHandler implements Runnable {
       userInput = new Scanner(System.in);
 
       // TODO: Remove this
-      System.out.println("Successfully opened input and output streams");
+      System.out.println("\n\nSuccessfully opened input and output streams");
 
     } catch (IOException e) {
       e.printStackTrace();
     }
+
+    // Give the user instructions
+    System.out.println("\nHello! Welcome to the auction.");
+    System.out.println("The current item is " + networkInput.nextLine().toString());
+    System.out.println("The current bid is " +  networkInput.nextLine().toString());
+    System.out.println("To place a bid simply enter a number greater than the minimum bid, to find out what the current bid is enter 'get bid' to quit type QUIT \n");
 
 
     // Strings for holding the messages to be sent
@@ -42,15 +48,19 @@ public class ClientThreadHandler implements Runnable {
 
     // Wait for user input
     do {
-      while (networkInput.hasNextLine()) {
+      // TODO :
+      //- Getting into the do-while [X]
+      //- Sending the user intput [X]
+      //- ** Getting stuck on waiting on server response
+
+      message = userInput.nextLine();
+      System.out.println(message);
+      output.println(message);
+
+      while(networkInput.hasNextLine()){
         response = networkInput.nextLine();
         System.out.println(response);
-      }
-      System.out.println("Server Message finished");
-      while(userInput.hasNextLine()) {
-        message = userInput.nextLine();
-        System.out.println(message);
-        output.println(message);
+        System.out.println("Server Message finished");
       }
     } while(message != "QUIT");
 

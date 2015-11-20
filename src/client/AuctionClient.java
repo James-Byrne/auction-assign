@@ -34,7 +34,7 @@ public class AuctionClient {
     Thread clientThread = new Thread(new ClientThreadHandler(host, PORT));
     clientThread.start();
   }
-
+// TODO : Remove the below commented out code
   // private static void sendMessages() {
   //   try {
   //     link = new Socket(host, PORT);

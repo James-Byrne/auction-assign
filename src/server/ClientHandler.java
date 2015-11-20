@@ -19,7 +19,7 @@ class ClientHandler implements Runnable {
 
   private Socket client;
   private ItemHandler itemHandler;
-  private DataInputStream input;
+  private Scanner input;
   private PrintWriter output;
   private String currentBid;
 
@@ -33,19 +33,24 @@ class ClientHandler implements Runnable {
     System.out.println("Entered the run function ");
     // Create the input and output streams for communication with the user
     try {
-      input = new DataInputStream(client.getInputStream());
+      input = new Scanner(client.getInputStream());
       output = new PrintWriter(client.getOutputStream(), true);
 
       System.out.println("Successfully got input & output stream ");
 
+
+      output.println(itemHandler.getCurrentItem());
+      output.println(itemHandler.getCurrentBid());
+
+// TODO : clean up this file
       // Give the user instructions
-      output.println("\nHello! Welcome to the auction.");
-      output.println("The current item is " + itemHandler.getCurrentItem());
-      output.println("The current bid is " + itemHandler.getCurrentBid().toString());
-      output.println("To place a bid simply enter a number greater than the minimum bid, to find out what the current bid is enter 'get bid' to quit type QUIT \n");
+      // output.println("\nHello! Welcome to the auction.");
+      // output.println("The current item is " + itemHandler.getCurrentItem());
+      // output.println("The current bid is " + itemHandler.getCurrentBid().toString());
+      // output.println("To place a bid simply enter a number greater than the minimum bid, to find out what the current bid is enter 'get bid' to quit type QUIT \n");
       // Flush the output stream
       // output.flush();
-      System.out.println("Instructions given to client");
+      // System.out.println("Instructions given to client");
 
       String recieved;
 
@@ -53,26 +58,26 @@ class ClientHandler implements Runnable {
       do {
         System.out.println("Waiting on user input");
         // TODO: Something wrong with this line?
-        recieved = input.readLine();
+        recieved = input.nextLine();
         System.out.println("Got user input : " + recieved);
 
         if(recieved == "get bid") {
           // echo the current bid
           output.println("The current bid is " + currentBid);
           System.out.println("\n bid request resolved \n");
+
+        } else if(Integer.parseInt(recieved) > 0) {
+          // The above line needs a try catch for a number format exception 
+        if(Integer.parseInt(itemHandler.getCurrentBid()) > Integer.parseInt(currentBid)){
+            currentBid = itemHandler.getCurrentBid();
+            // echo to the user the change in the bid
+            output.println(currentBid);
+
+        } else {
+          // echo bid not set, too low & echo current bid
+          output.println("\nYour bid is too low, the current bid is: " + currentBid + "\n");
         }
 
-        if(Integer.parseInt(recieved) > 0) {
-
-          if(Integer.parseInt(itemHandler.getCurrentBid()) > Integer.parseInt(currentBid)){
-              currentBid = itemHandler.getCurrentBid();
-              // echo to the user the change in the bid
-              output.println(currentBid);
-
-          } else {
-            // echo bid not set, too low & echo current bid
-            output.println("\nYour bid is too low, the current bid is: " + currentBid + "\n");
-          }
 
         } else {
           // Throw error to the user, input not a number
