@@ -37,7 +37,7 @@ public class AuctionServer {
       try {
         // Wait for the client to make a connection
         Socket client = serverSocket.accept();
-        System.out.println("\nNew client accepted.\n");
+        System.out.println("New client accepted.");
 
         Thread clientHandler = new Thread(new ClientHandler(client, itemHandler));
         clientHandler.start();

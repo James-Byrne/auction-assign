@@ -30,21 +30,22 @@ class ClientHandler implements Runnable {
   }
 
   public void run() {
-    System.out.println("\n Entered the run function \n");
+    System.out.println("Entered the run function ");
     // Create the input and output streams for communication with the user
     try {
       input = new DataInputStream(client.getInputStream());
       output = new PrintWriter(client.getOutputStream(), true);
 
-      System.out.println("\nSuccessfully got input & output stream \n");
+      System.out.println("Successfully got input & output stream ");
 
       // Give the user instructions
       output.println("\nHello! Welcome to the auction.");
       output.println("The current item is " + itemHandler.getCurrentItem());
       output.println("The current bid is " + itemHandler.getCurrentBid().toString());
       output.println("To place a bid simply enter a number greater than the minimum bid, to find out what the current bid is enter 'get bid' to quit type QUIT \n");
-
-      System.out.println("\nInstructions given to client \n");
+      // Flush the output stream
+      // output.flush();
+      System.out.println("Instructions given to client");
 
       String recieved;
 
@@ -54,7 +55,6 @@ class ClientHandler implements Runnable {
         // TODO: Something wrong with this line?
         recieved = input.readLine();
         System.out.println("Got user input : " + recieved);
-
 
         if(recieved == "get bid") {
           // echo the current bid

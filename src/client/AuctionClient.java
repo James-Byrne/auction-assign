@@ -31,46 +31,47 @@ public class AuctionClient {
       System.out.println("\nHost ID not found");
       System.exit(1);
     }
-
-    sendMessages();
+    Thread clientThread = new Thread(new ClientThreadHandler(host, PORT));
+    clientThread.start();
   }
 
-  private static void sendMessages() {
-    try {
-      link = new Socket(host, PORT);
-      // get and input and output stream
-      output = new PrintWriter(link.getOutputStream(), true);
-      networkInput = new Scanner(link.getInputStream());
-
-      // Look for user input
-      userInput = new Scanner(System.in);
-
-      // TODO: Remove this
-      System.out.println("Successfully opened input and output streams");
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-
-    // Strings for holding the messages to be sent
-    // and responses fromt he server
-    String message = "";
-    String response = "";
-
-    // Wait for user input
-    do {
-      while ((response = networkInput.nextLine()) != null) {
-        System.out.println(response);
-      }
-      while((message = userInput.nextLine()) != null){
-        // TODO : Remove this after debugging
-        System.out.println(message);
-        output.println(message);
-      }
-    } while(message != "QUIT");
-
-    System.out.println("\nGoodbye");
-    System.exit(1);
-  }
+  // private static void sendMessages() {
+  //   try {
+  //     link = new Socket(host, PORT);
+  //     // get and input and output stream
+  //     output = new PrintWriter(link.getOutputStream(), true);
+  //     networkInput = new Scanner(link.getInputStream());
+  //
+  //     // Look for user input
+  //     userInput = new Scanner(System.in);
+  //
+  //     // TODO: Remove this
+  //     System.out.println("Successfully opened input and output streams");
+  //
+  //   } catch (IOException e) {
+  //     e.printStackTrace();
+  //   }
+  //
+  //
+  //   // Strings for holding the messages to be sent
+  //   // and responses fromt he server
+  //   String message = "";
+  //   String response = "";
+  //
+  //   // Wait for user input
+  //   do {
+  //     while ((response = networkInput.nextLine()) != null) {
+  //       System.out.println(response);
+  //     }
+  //     while((message = userInput.nextLine()) != null){
+  //       // TODO : Remove this after debugging
+  //       System.out.println(message);
+        // output.println(message);
+  //     }
+  //     output.flush();
+  //   } while(message != "QUIT");
+  //
+  //   System.out.println("\nGoodbye");
+  //   System.exit(1);
+  // }
 }
