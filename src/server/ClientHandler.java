@@ -66,7 +66,9 @@ class ClientHandler implements Runnable {
           output.println("The current bid is " + currentBid);
           System.out.println("\n bid request resolved \n");
 
-        } else if(Integer.parseInt(recieved) > 0) {
+        } 
+	try {
+	if(Integer.parseInt(recieved) > 0) {
           // The above line needs a try catch for a number format exception 
         if(Integer.parseInt(itemHandler.getCurrentBid()) > Integer.parseInt(currentBid)){
             currentBid = itemHandler.getCurrentBid();
@@ -77,7 +79,9 @@ class ClientHandler implements Runnable {
           // echo bid not set, too low & echo current bid
           output.println("\nYour bid is too low, the current bid is: " + currentBid + "\n");
         }
-
+	} catch (NumberFormatException e) {
+	  System.out.println("reaching number format error");
+	}
 
         } else {
           // Throw error to the user, input not a number
