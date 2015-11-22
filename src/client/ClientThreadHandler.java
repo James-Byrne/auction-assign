@@ -5,11 +5,11 @@ import java.util.*;
 public class ClientThreadHandler implements Runnable {
 
   private Socket link;
+  private int PORT;
+  private InetAddress host;
   private PrintWriter output;
   private Scanner networkInput;
   private Scanner userInput;
-  private InetAddress host;
-  private int PORT;
   private int currentTime;
 
   public ClientThreadHandler (InetAddress host, int PORT) {

@@ -33,16 +33,16 @@ class ClientHandler implements Runnable {
     System.out.println("Entered the run function ");
     // Create the input and output streams for communication with the user
     try {
-      input = new Scanner(client.getInputStream());
+      input = new Scanner(client.getInputStream(), "UTF8");
       output = new PrintWriter(client.getOutputStream(), true);
 
       System.out.println("Successfully got input & output stream ");
-
 
       output.println(itemHandler.getCurrentItem());
       output.println(itemHandler.getCurrentBid());
 
       String recieved;
+      currentBid = itemHandler.getCurrentBid();
 
       // Handle clients input & bids
       do {
@@ -50,14 +50,15 @@ class ClientHandler implements Runnable {
         recieved = input.nextLine();
         System.out.println("Got user input : " + recieved);
         try {
+
+          // Return the current bid to the user
           if(recieved == "get bid") {
-            // echo the current bid
             output.println("The current bid is " + currentBid);
             System.out.println("bid request resolved");
 
-          } else if (Integer.valueOf(recieved) > 0) {
-
-            if(Integer.valueOf(itemHandler.getCurrentBid()) > Integer.valueOf(currentBid)){
+          } else if (Integer.parseInt(recieved) > 0) {
+            // Else if the recieved input is a number make a bid
+            if(Integer.parseInt(itemHandler.getCurrentBid()) > Integer.parseInt(currentBid)){
               currentBid = itemHandler.getCurrentBid();
               // echo to the user the change in the bid
               output.println(currentBid);
