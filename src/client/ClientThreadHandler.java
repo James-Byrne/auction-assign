@@ -27,7 +27,7 @@ public class ClientThreadHandler implements Runnable {
       // Look for user input
       userInput = new Scanner(System.in);
 
-      // TODO: Remove this
+      // Show that we succesfully opened input and output streams
       System.out.println("\n\nSuccessfully opened input and output streams");
 
     } catch (IOException e) {
@@ -48,20 +48,11 @@ public class ClientThreadHandler implements Runnable {
 
     // Wait for user input
     do {
-      // TODO :
-      //- Getting into the do-while [X]
-      //- Sending the user intput [X]
-      //- ** Getting stuck on waiting on server response
-
       message = userInput.nextLine();
-      System.out.println(message);
       output.println(message);
 
-      while(networkInput.hasNextLine()){
-        response = networkInput.nextLine();
-        System.out.println(response);
-        System.out.println("Server Message finished");
-      }
+      response = networkInput.nextLine().toString();
+      System.out.println(response);
     } while(message != "QUIT");
 
     System.out.println("\nGoodbye");
