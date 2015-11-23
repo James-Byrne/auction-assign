@@ -1,4 +1,4 @@
 cd src/server
 javac -classpath . *.java
 cd ../client
-javac -classpath . *.java 
+javac -classpath . *.java

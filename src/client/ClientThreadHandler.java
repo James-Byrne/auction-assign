@@ -1,3 +1,11 @@
+/*
+  Author : James Byrne
+
+  Description :
+  Manages the users interaction with the server including all input and output
+
+*/
+
 import java.net.*;
 import java.io.*;
 import java.util.*;
